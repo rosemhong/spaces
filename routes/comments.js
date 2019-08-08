@@ -63,8 +63,11 @@ router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req, 
 router.put("/:comment_id", middleware.checkCommentOwnership, function(req, res) {
 	Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, updatedComment) {
 		if (err) {
+			console.log(err);
+			req.flash("error", "Sorry, something went wrong");
 			res.redirect("back");
 		} else {
+			req.flash("success", "Comment updated");
 			res.redirect("/spaces/" + req.params.id);
 		}
 	});

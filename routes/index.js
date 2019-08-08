@@ -9,28 +9,27 @@ router.get("/", function(req, res) {
 
 // Show signup form
 router.get("/register", function(req, res) {
-	res.render("register");
+	res.render("register", {page: "register"});
 });
 
 // Handle signup logic
-router.post("/register", function(req, res) {
-	var newUser = new User({username: req.body.username});
-	User.register(newUser, req.body.password, function(err, user) {
-		if (err) {
-			req.flash("error", err.message);
-			return res.redirect("/register");
-		} else {
-			passport.authenticate("local")(req, res, function() {
-				req.flash("success", "Welcome to Spaces, " + user.username);
-				res.redirect("/spaces");
-			});
-		}
-	});
+router.post("/register", function(req, res){
+    var newUser = new User({username: req.body.username});
+    User.register(newUser, req.body.password, function(err, user) {
+        if(err) {
+            console.log(err);
+            return res.render("register", {error: err.message});
+        }
+        passport.authenticate("local")(req, res, function(){
+           req.flash("success", "Welcome to Spaces, " + req.body.username);
+           res.redirect("/spaces"); 
+        });
+    });
 });
 
 // Show login form
 router.get("/login", function(req, res) {
-	res.render("login");
+	res.render("login", {page: "login"});
 });
 
 // Handle login logic

@@ -2,13 +2,21 @@ var express = require("express");
 var router = express.Router();
 var Space = require("../models/space");
 var middleware = require("../middleware");
+var NodeGeocoder = require("node-geocoder");
+var options = {
+  provider: "google",
+  httpAdapter: "https",
+  apiKey: process.env.GEOCODER_API_KEY,
+  formatter: null
+};
+var geocoder = NodeGeocoder(options);
 
 router.get("/", function(req, res) {
 	Space.find({}, function(err, allSpaces) {
 		if (err) {
 			console.log(err);
 		} else {
-			res.render("spaces", {spaces: allSpaces});
+			res.render("spaces", {spaces: allSpaces, page: "spaces"});
 		}
 	});
 });
@@ -28,16 +36,27 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
 		id: req.user._id,
 		username: req.user.username
 	}
-	var newSpace = {name: name, image: image, amenities: amenities, description: description, author: author};
-	
-	Space.create(newSpace, function(err, newlyCreatedSpace) {
-		if (err) {
-			console.log(err);
-			req.flash("error", "Sorry, something went wrong");
-		} else {
-			req.flash("success", "Space created");
-			res.redirect("/spaces");
+	geocoder.geocode(req.body.location, function(err, data) {
+		if (err || !data.length) {
+			req.flash("error", "Invalid address");
+			return res.redirect("back");
 		}
+		
+		var lat = data[0].latitude;
+		var lng = data[0].longitude;
+		var location = data[0].formattedAddress;
+		
+		var newSpace = {name: name, image: image, amenities: amenities, description: description, author: author, location: location, lat: lat, lng: lng};
+		
+		Space.create(newSpace, function(err, newlyCreatedSpace) {
+			if (err) {
+				console.log(err);
+				req.flash("error", "Sorry, something went wrong");
+			} else {
+				req.flash("success", "Space created");
+				res.redirect("/spaces");
+			}
+		});
 	});
 });
 
@@ -62,12 +81,26 @@ router.get("/:id/edit", middleware.checkSpaceOwnership, function(req, res) {
 
 // SPACE UPDATE
 router.put("/:id", middleware.checkSpaceOwnership, function(req, res) {
-	Space.findByIdAndUpdate(req.params.id, req.body.space, function(err, updatedSpace) {
-		if (err) {
-			res.redirect("back");
-		} else {
-			res.redirect("/spaces/" + req.params.id);
+	geocoder.geocode(req.body.space.location, function(err, data) {
+		if (err || !data.length) {
+			req.flash("error", "Invalid address");
+			return res.redirect("back");
 		}
+		
+		req.body.space.lat = data[0].latitude;
+		req.body.space.lng = data[0].longitude;
+		req.body.space.location = data[0].formattedAddress;
+		
+		Space.findByIdAndUpdate(req.params.id, req.body.space, function(err, updatedSpace) {
+			if (err) {
+				console.log(err);
+				req.flash("error", "Sorry, something went wrong");
+				res.redirect("back");
+			} else {
+				req.flash("success", "Space updated");
+				res.redirect("/spaces/" + req.params.id);
+			}
+		});
 	});
 });
 
