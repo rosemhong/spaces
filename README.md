@@ -1,6 +1,6 @@
 # spaces
 
-**Deployed at:** https://rosemhong-spaces.herokuapp.com/
+**Hosted at:** https://rosemhong-spaces.herokuapp.com/
 
 **Description:** A Node.js web application for users to upload and discover their favorite spaces.
 
