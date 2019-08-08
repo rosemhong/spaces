@@ -16,7 +16,9 @@ var indexRoutes = require("./routes/index"),
 	commentRoutes = require("./routes/comments"),
 	spaceRoutes = require("./routes/spaces");
 
-mongoose.connect("mongodb://localhost/spaces");
+var url = process.env.DATABASEURL || "mongodb://localhost/spaces"
+mongoose.connect(url);
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
