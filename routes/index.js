@@ -17,6 +17,9 @@ router.post("/register", function(req, res){
     var newUser = new User({username: req.body.username});
     if (req.body.adminCode === process.env.ADMINCODE) {
 		newUser.isAdmin = true;
+	} else if (req.body.adminCode && req.body.adminCode != process.env.ADMINCODE) {
+		req.flash("error", "Incorrect code");
+		return res.redirect("back"); 
 	}
 	User.register(newUser, req.body.password, function(err, user) {
         if(err) {
@@ -24,8 +27,12 @@ router.post("/register", function(req, res){
             return res.render("register", {error: err.message});
         }
         passport.authenticate("local")(req, res, function(){
-           req.flash("success", "Welcome to Spaces, " + req.body.username);
-           res.redirect("/spaces"); 
+			if (newUser.isAdmin) {
+				req.flash("success", "Welcome to Spaces, Admin " + req.body.username);
+			} else {
+				req.flash("success", "Welcome to Spaces, " + req.body.username);
+			}
+        	res.redirect("/spaces"); 
         });
     });
 });
