@@ -14,6 +14,7 @@
   - Admin ability to manage all posts and comments
 - *Functionality*:
   - Create, edit, and delete posts and comments
+  - Display each space's location on Google Maps
 - Flash messages 
 - RESTful routes
 
