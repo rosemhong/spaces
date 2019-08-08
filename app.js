@@ -26,6 +26,8 @@ app.use(methodOverride("_method"));
 app.use(flash());
 // seedDB(); - OUTDATED
 
+app.locals.moment = require("moment");
+
 // Passport configuration
 app.use(require("express-session")({
 	secret: "Secret spaces??",
