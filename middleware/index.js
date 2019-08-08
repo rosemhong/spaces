@@ -16,13 +16,13 @@ middlewareObj.checkSpaceOwnership = function (req, res, next) {
 	if (req.isAuthenticated()) {
 		Space.findById(req.params.id, function(err, foundSpace) {
 			if (err || !foundSpace) {
-				req.flash("error", "Space not found")
+				req.flash("error", "Space not found");
 				res.redirect("back");
 			} else {
 				if (foundSpace.author.id.equals(req.user._id)) {
-					next()
+					next();
 				} else {
-					req.flash("error", "Sorry, you don't have permission to do that")
+					req.flash("error", "Sorry, you don't have permission to do that");
 					res.redirect("back");
 				}
 			}
@@ -41,7 +41,7 @@ middlewareObj.checkCommentOwnership = function(req, res, next) {
 				res.redirect("back");
 			} else {
 				if (foundComment.author.id.equals(req.user._id)) {
-					next()
+					next();
 				} else {
 					req.flash("error", "Sorry, you don't have permission to do that");
 					res.redirect("back");
