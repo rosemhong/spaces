@@ -4,23 +4,29 @@
 		<h1 style="text-align: center">Create a New Space</h1>
 		<div style="width: 30%; margin: 25px auto;">
 			<form action="/spaces" method="POST">
+				<label for="name">Name</label>
 				<div class="form-group">
-					<input class="form-control" type="text" name="name" placeholder="Name">
+					<input id="name" class="form-control" type="text" name="name" placeholder="e.g. Willy Wonka">
 				</div>
+				<label for="image">Image</label>
 				<div class="form-group">
-					<input class="form-control" type="text" name="image" placeholder="Image URL">
+					<input id="image" class="form-control" type="text" name="image" placeholder="URL">
 				</div>
+				<label for="amenities">Amenities</label>
 				<div class="form-group">
-					<input class="form-control" type="text" name="amenities" placeholder="Amenities – outlets, Wi-Fi, etc.">
+					<input id="amenities" class="form-control" type="text" name="amenities" placeholder="e.g. Wi-Fi, ample seating, outlets, etc.">
 				</div>
+				<label for="description">Description</label>
 				<div class="form-group">
-					<input class="form-control" type="text" name="description" placeholder="Description – noisiness, nearby cafés, etc.">
+					<input id="description" class="form-control" type="text" name="description" placeholder="Describe noisiness, nearby cafés, etc.">
 				</div>
+				<label for="location">Location</label>
 				<div class="form-group">
-					<input class="form-control" type="text" name="location" placeholder="Location - e.g. Smith Campus Center">
+					<input id="location" class="form-control" type="text" name="location" placeholder="e.g. Smith Campus Center">
 				</div>
+				<label for="credits">Photo Credits</label>
 				<div class="form-group">
-					<input class="form-control" type="text" name="credits" placeholder="Photo Credits">
+					<input id="credits" class="form-control" type="text" name="credits" placeholder="e.g. Ansel Adams">
 				</div>
 				<div class="form-group">
 					<button class="btn btn-lg btn-primary btn-block">Submit</button>

@@ -15,9 +15,9 @@ router.get("/register", function(req, res) {
 // Handle signup logic
 router.post("/register", function(req, res){
     var newUser = new User({username: req.body.username});
-    if (req.body.adminCode === process.env.ADMINCODE) {
+    if (req.body.code === process.env.ADMIN_CODE) {
 		newUser.isAdmin = true;
-	} else if (req.body.adminCode && req.body.adminCode != process.env.ADMINCODE) {
+	} else if (req.body.code !== process.env.USER_CODE) {
 		req.flash("error", "Incorrect code");
 		return res.redirect("back"); 
 	}
