@@ -8,7 +8,7 @@
 			<p>
 				<form class="form-inline" action="/spaces" method="GET">
 					<a class="btn btn-primary btn-lg" href="/spaces/new">Create a New Space</a>
-					<div id="search" class="form-group">
+					<div id="float-sm-right" class="form-group">
 						<input type="text" name="search" placeholder="Cambridge, Wi-Fi, etc." class="form-control">
 						<input type="submit" value="Search" class="btn btn-default">
 					</div>
@@ -18,11 +18,11 @@
 	</header>
 
 	<div class="row text-center" style="display: flex; flex-wrap: wrap">
-		<div class="col-lg-12">
-			<h3>Our Spaces</h3>
+		<div class="col-xs-12">
+			<h3 id="our-spaces">Our Spaces</h3>
 		</div>
 		<% spaces.forEach(function(space) { %>
-			<div class="col-md-3 col-sm-6">
+			<div class="col-md-3 col-sm-6 col-xs-12">
 				<div class="thumbnail">
 					<img src="<%= space.image %>">
 					<div class="caption">

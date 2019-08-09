@@ -1,6 +1,7 @@
 # spaces
 
-**Hosted at:** https://rosemhong-spaces.herokuapp.com/
+**Hosted at:** https://rosemhong-spaces.herokuapp.com/  
+Note: If you'd like to create an account (either user or admin), please contact me for an access code. Without an account, you may still access the site - you just won't be able to post or comment.
 
 **Description:** A Node.js web application for users to upload and discover their favorite spaces.
 
