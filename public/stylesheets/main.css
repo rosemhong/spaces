@@ -31,12 +31,6 @@
 	}
 }
 
-@media (min-width: 992px) {
-	#float-lg-right {
-		float: right;
-	}
-}
-
 /* Google Maps */
 #map {
     height: 400px;
