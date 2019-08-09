@@ -44,6 +44,7 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
 	var image = req.body.image;
 	var amenities = req.body.amenities;
 	var description = req.body.description;
+	var credits = req.body.credits;
 	var author = {
 		id: req.user._id,
 		username: req.user.username
@@ -59,7 +60,7 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
 		var lng = data[0].longitude;
 		var location = data[0].formattedAddress;
 		
-		var newSpace = {name: name, image: image, amenities: amenities, description: description, author: author, location: location, lat: lat, lng: lng};
+		var newSpace = {name: name, image: image, amenities: amenities, description: description, location: location, lat: lat, lng: lng, credits: credits, author: author};
 		
 		Space.create(newSpace, function(err, newlyCreatedSpace) {
 			if (err) {

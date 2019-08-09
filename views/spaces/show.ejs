@@ -9,9 +9,10 @@
 			<div class="thumbnail">
 				<img class="img-responsive" src="<%= space.image %>">
 				<div class="caption-full">
-					<h4 class="pull-right"><%= space.amenities %></h4>
+					<h4 class="pull-right">Amenities: <%= space.amenities %></h4>
 					<h4><a><%= space.name %></a></h4>
-					<p> <%= space.description %></p>
+					<p>Description: <%= space.description %></p>
+					<p>Photo Credits: <%= space.credits %></p>
 					<p>
 						<em>Submitted by <%= space.author.username %>, <%= moment(space.createdAt).fromNow() %></em>
 					</p>
