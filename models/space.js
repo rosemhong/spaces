@@ -5,6 +5,7 @@ var spaceSchema = new mongoose.Schema({
 	amenities: String,
 	description: String,
 	location: String,
+	credits: String,
 	lat: Number,
 	lng: Number,
 	createdAt: {type: Date, default: Date.now},

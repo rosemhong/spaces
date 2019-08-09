@@ -9,7 +9,7 @@
 			<div class="thumbnail">
 				<img class="img-responsive" src="<%= space.image %>">
 				<div class="caption-full">
-					<h4 class="pull-right">Amenities: <%= space.amenities %></h4>
+					<h4 class="pull-right"><%= space.amenities %></h4>
 					<h4><a><%= space.name %></a></h4>
 					<p>Description: <%= space.description %></p>
 					<p>Photo Credits: <%= space.credits %></p>
@@ -63,9 +63,8 @@
 				scrollwheel: false
 			});
 			var contentString = `
-			  <strong><%= space.name %><br />
-			  <%= space.location %></strong>
-			  <p><%= space.description %></p>
+			  <strong><%= space.name %></strong><br/>
+			  <%= space.location %>
 			`
 			var infowindow = new google.maps.InfoWindow({
 			  content: contentString
