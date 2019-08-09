@@ -12,13 +12,25 @@ var options = {
 var geocoder = NodeGeocoder(options);
 
 router.get("/", function(req, res) {
-	Space.find({}, function(err, allSpaces) {
-		if (err) {
-			console.log(err);
-		} else {
-			res.render("spaces", {spaces: allSpaces, page: "spaces"});
-		}
-	});
+	// Fuzzy search
+	if (req.query.search) {
+		const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+		Space.find({$or: [{name: regex,}, {amenities: regex}, {description: regex}, {location: regex}, {"author.username":regex}]}, function(err, allSpaces) {
+			if (err) {
+				console.log(err);
+			} else {
+				res.render("spaces", {spaces: allSpaces, page: "spaces"});
+			}
+		});
+	} else {
+		Space.find({}, function(err, allSpaces) {
+			if (err) {
+				console.log(err);
+			} else {
+				res.render("spaces", {spaces: allSpaces, page: "spaces"});
+			}
+		});
+	}
 });
 
 // SPACE NEW
@@ -118,5 +130,10 @@ router.delete("/:id", middleware.checkSpaceOwnership, function(req, res) {
 		}
 	});
 });
+
+// For fuzzy search
+function escapeRegex(text) {
+	return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 module.exports = router;

@@ -6,7 +6,13 @@
 			<h1>Welcome to Spaces</h1>
 			<p>From cozy corner cafés to late-night study spots, find your favorite spaces here.</p>
 			<p>
-				<a class="btn btn-primary btn-lg" href="/spaces/new">Create a New Space</a>
+				<form class="form-inline" action="/spaces" method="GET">
+					<a class="btn btn-primary btn-lg" href="/spaces/new">Create a New Space</a>
+					<div id="search" class="form-group">
+						<input type="text" name="search" placeholder="Cambridge, Wi-Fi, etc." class="form-control">
+						<input type="submit" value="Search" class="btn btn-default">
+					</div>
+				</form>
 			</p>
 		</div>
 	</header>
